@@ -16,24 +16,44 @@ void Display(PERSON p[],int numberOfPeople){
         cout<<p[i].first<<" "<<p[i].last<<" "<< p[i].Balance<<endl;
     }
 }
-void FindRichest(PERSON p[],int numberOfPeople){
-    
-        float largest=p[0].Balance;
-    float temp=0;
-    int i;
-        for(int x=1; x<=numberOfPeople;x++){
-            temp=p[x].Balance;
-            if(temp>largest)
-                p[x].Balance=temp;
-            i++;
+void FindRichest(PERSON *p,int numberOfPeople){
+    int max=0;
+    for(int i=0; i<numberOfPeople; i++){
+        if(p[max].Balance<p[i].Balance){
+            max=i;
+    }
         }
-    cout<<p[i].Balance;
+    cout<<"The customer with maximum balance is: "<< p[max].first<< " "<<p[max].last<<endl;
 }
 
+void Deposit(char CustName[],PERSON *p,int numberOfPeople){
+    int index=0;
+    for(int i=0; i<numberOfPeople; i++)
+    {
+        if(strcmp(CustName,p[i].first)==0)
+        {
+            index=i;
+            break;
+        }
+    }
+    float Deposit;
+    cout<<endl;
+    cout<< CustName<<", how much would you like to deposit? ";
+    cin>>Deposit;
+    p[index].Balance+=Deposit;
+    cout<<"New balance is $"<<p[index].Balance<<endl;
+    
+}
+/*
+void NewCopy(string firstname,PERSON *p,int numberOfPeople){
+    
+    
+}
+*/
 int main() {
     //make the array for PERSON struct
     PERSON p[100];
-    
+    string name;
     //open the file
     ifstream file("data.txt");
     
@@ -61,4 +81,11 @@ int main() {
     //output array to the screen
     Display(p,numberOfPeople);
     FindRichest(p,numberOfPeople);
+    char CustName[20];
+    cout<<"Enter your first name to deposit money: ";
+    getline(cin,name);
+    strcpy(CustName,name.c_str());
+    Deposit(CustName,p,numberOfPeople);
+    //NewCopy("data.txt",p,numberOfPeople);
+    return 0;
 }
