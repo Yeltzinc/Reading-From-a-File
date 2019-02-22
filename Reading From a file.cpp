@@ -44,12 +44,17 @@ void Deposit(char CustName[],PERSON *p,int numberOfPeople){
     cout<<"New balance is $"<<p[index].Balance<<endl;
     
 }
-/*
-void NewCopy(string firstname,PERSON *p,int numberOfPeople){
-    
-    
+
+void NewCopy(string name,PERSON *p,int numberOfPeople){
+    ofstream out;
+    out.open(name.c_str());
+    for(int i=0; i<numberOfPeople;i++)
+    {
+        out<<p[i].first<<" "<<p[i].last<<" "<<p[i].Balance<<endl;
+    }
+    out.close();
 }
-*/
+
 int main() {
     //make the array for PERSON struct
     PERSON p[100];
@@ -86,6 +91,6 @@ int main() {
     getline(cin,name);
     strcpy(CustName,name.c_str());
     Deposit(CustName,p,numberOfPeople);
-    //NewCopy("data.txt",p,numberOfPeople);
+    NewCopy("data.txt",p,numberOfPeople);
     return 0;
 }
